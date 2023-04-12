@@ -11,7 +11,7 @@ import android.view.SurfaceHolder;
 public class GameDrawRunnable implements Runnable {
     private Game game;
     private SurfaceHolder surfaceHolder;
-    private boolean running = false;
+    private boolean running;
 
     private boolean paused = false;
     private Thread thread;
@@ -81,6 +81,13 @@ public class GameDrawRunnable implements Runnable {
         Canvas canvas = null;
         startTime = System.currentTimeMillis();
         while (running) {
+            while(paused && thread != null){
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             try {
                 canvas = surfaceHolder.lockCanvas();
                 synchronized (surfaceHolder) {
@@ -109,13 +116,13 @@ public class GameDrawRunnable implements Runnable {
                 }
             }
             //pause the thread if game is paused
-            while(paused && thread != null){
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+//            while(paused && thread != null){
+//                try {
+//                    Thread.sleep(100);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
         }
     }
 }

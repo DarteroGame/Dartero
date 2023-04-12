@@ -75,6 +75,7 @@ public class GameLoop extends Thread{
 
 
     public void stopLoop() {
+        isPaused = true;
         Log.d("GameLoop.java", "stopLoop()");
         try {
             join();
