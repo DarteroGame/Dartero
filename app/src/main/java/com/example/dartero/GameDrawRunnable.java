@@ -84,7 +84,9 @@ public class GameDrawRunnable implements Runnable {
             try {
                 canvas = surfaceHolder.lockCanvas();
                 synchronized (surfaceHolder) {
-                    game.draw(canvas);
+                    if (canvas != null){
+                        game.draw(canvas);
+                    }
 
                     // Calculate and draw FPS
                     elapsedTime = System.currentTimeMillis() - startTime;
